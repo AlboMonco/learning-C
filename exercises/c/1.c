@@ -1,5 +1,8 @@
 #include <stdio.h>
+/*
+    main - it verifies if a number is multiple by three or five, and sum in "soma"
 
+*/
 #define NUMERO 1000
 
 int main(){
