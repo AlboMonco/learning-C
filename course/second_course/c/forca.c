@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 
-void abertura(){
+void abertura() {
     printf("*****************\n");
     printf("* Jogo de forca *\n");
     printf("*****************\n\n");
 }
 
-void chuta(char chutes[26], int tentativas){
+void chuta(char chutes[26], int* tentativas){
     char chute;
     scanf(" %c", &chute);
 
-    chutes[tentativas] = chute;
+    chutes[*tentativas] = chute;
     
-
+    *tentativas++;
 }
 
 int main(){
@@ -54,10 +54,9 @@ int main(){
         }
         printf("\n");
 
-        chuta(chutes, tentativas);
-        tentativas++;
-        
-    } while (!acertou && !enforcou);
+        chuta(chutes, & tentativas);
+
+        } while (!acertou && !enforcou);
     
     
 
