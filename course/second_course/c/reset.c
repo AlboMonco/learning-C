@@ -1,18 +1,15 @@
 #include <stdio.h>
 
-void calcula(int* c){
-    printf("calcula %d\n", (*c));
-    (*c)++;
-    printf("calcula %d\n", (*c));
+void soma(int* numero, int a, int b){
+    *numero += a+b;
 }
-
 
 int main(){
 
-    int c = 10;
+    int num = 0;
 
-    printf("main %d\n", c);
-    calcula(&c);
-    printf("main %d\n", c);
+    printf("%d\n", num);
+    soma(&num, 1,5);
+    printf("%d\n", num);
 
-}
+}   
