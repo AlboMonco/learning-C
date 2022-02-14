@@ -13,7 +13,7 @@ void chuta(char chutes[26], int* tentativas){
 
     chutes[*tentativas] = chute;
     
-    *tentativas++;
+    (*tentativas)++;
 }
 
 int main(){
@@ -54,7 +54,7 @@ int main(){
         }
         printf("\n");
 
-        chuta(chutes, & tentativas);
+        chuta(chutes, &tentativas);
 
         } while (!acertou && !enforcou);
     
