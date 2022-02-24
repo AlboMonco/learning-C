@@ -1,37 +1,22 @@
 #include <stdio.h>
 
-void potencia(int* resultado, int base, int expoente) {
-    int potencia = 1;
-    for (int i = 1; i <= expoente; i++){
-        potencia *= base;
-    }
-    (*resultado) = potencia;
+int soma(int lista[3], int tamanho){
     
-    printf("%d\n", (*resultado));
+    int soma = 0;
 
+    for (int i = 0; i < tamanho; i++){
+        soma += lista[i];
+    }
+    
+    return soma;
 }
 
 int main(){
+
+    int nums[3]= {10,20,30};
     
-    int resultado;
-    int jogar = 0;
-    do{
-        int base;
-        int expoente;
-        
-        printf("Base: ");
-        scanf("%d", &base);
-
-        printf("Expoente: ");
-        scanf("%d", &expoente);
-
-        potencia(&resultado, base, expoente);
-
-        printf("Quer jogar de novo? Sim (1) Não (0)\n");
-        scanf("%d", &jogar);   
-    
-    } while(jogar);
+    int total = soma(nums, 3); //não precisa mandar o endereço de memória
+    printf("%d\n", total);
 
 
-   
 }
