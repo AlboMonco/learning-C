@@ -1,6 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mapa.h"
+
+void copia_mapa(MAPA* destino, MAPA* origem){
+    destino->linhas = origem->linhas;
+    destino->colunas = origem->colunas;
+
+    aloca_mapa(destino);
+    for (int i = 0; i < origem->linhas; i++){
+        strcpy(destino->matriz[i], origem->matriz[i]);
+    }
+
+}
+
+void anda_no_mapa(MAPA* m, int x_origem, int y_origem,
+    int x_destino, int y_destino){
+    
+    char personagem = m->matriz[x_origem][y_origem];
+    m->matriz[x_destino][y_destino] = personagem;
+    m->matriz[x_origem][y_origem] = VAZIO;
+    
+}
+
+int eh_valida(MAPA* m, int x, int y){
+    if (x >= m->linhas)
+        return 0;
+    if (y >= m->colunas)
+        return 0;
+
+    return 1;   
+
+}
+
+int eh_vazia(MAPA* m, int x, int y){
+    return m->matriz[x][y] == VAZIO;
+}
 
 void encontra_mapa(MAPA* m, POSICAO* p, char c){
     for (int i = 0; i < m->linhas; i++){
