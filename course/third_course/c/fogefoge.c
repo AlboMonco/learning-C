@@ -21,7 +21,7 @@ int pra_onde_o_fantasma_vai(int x_atual, int y_atual,
     for (int i = 0; i < 10; i++) {
         int posicao = rand() % 4;
 
-        if (eh_valida(&m, opcoes[posicao][0], opcoes[posicao][1]) && eh_vazia(&m, opcoes[posicao][0], opcoes[posicao][1])){
+        if (pode_andar(&m, FANTASMA, opcoes[posicao][0], opcoes[posicao][1])){
             *x_destino = opcoes[posicao][0];
             *y_destino = opcoes[posicao][1];
 
@@ -59,11 +59,17 @@ void fantasmas(){
 }
 
 int acabou(){
-    return 0;
+    POSICAO pos;
+    int fogefoge_no_mapa = encontra_mapa(&m, &pos, HEROI);
+    return !fogefoge_no_mapa;
 }
 
 int eh_direcao(char direcao){
-    return direcao == ESQUERDA || direcao == CIMA || direcao == BAIXO || direcao == DIREITA;
+    return 
+        direcao == ESQUERDA ||
+        direcao == CIMA || 
+        direcao == BAIXO || 
+        direcao == DIREITA;
 }
 
 void move(char direcao){
@@ -90,10 +96,7 @@ void move(char direcao){
 
     }
 
-    if(!eh_valida(&m, proximo_x, proximo_y))
-        return;
-
-    if (!eh_vazia(&m, proximo_x, proximo_y))
+    if(!pode_andar(&m, HEROI, proximo_x, proximo_y))
         return;
     
     anda_no_mapa(&m, heroi.x, heroi.y,
@@ -114,6 +117,7 @@ int main(){
 
         char comando;
         scanf(" %c", &comando);
+        
         move(comando);
         fantasmas();
 
