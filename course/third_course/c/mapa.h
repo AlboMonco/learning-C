@@ -23,12 +23,14 @@ void le_mapa(MAPA* m);
 void libera_mapa(MAPA* m);
 void aloca_mapa(MAPA* m);
 void imprime_mapa(MAPA* m);
-void encontra_mapa(MAPA* m, POSICAO* p, char c);
+int encontra_mapa(MAPA* m, POSICAO* p, char c);
 int eh_valida(MAPA* m, int x, int y);
 int eh_vazia(MAPA* m, int x, int y);
+int eh_personagem(MAPA* m, char personagem, int x, int y);
 void anda_no_mapa(MAPA* m, int x_origem, int y_origem,
     int x_destino, int y_destino);
 void copia_mapa(MAPA* destino, MAPA* origem);
+int pode_andar(MAPA* m, char personagem, int x, int y);
 
 
 
