@@ -37,16 +37,35 @@ int eh_vazia(MAPA* m, int x, int y){
     return m->matriz[x][y] == VAZIO;
 }
 
-void encontra_mapa(MAPA* m, POSICAO* p, char c){
+int encontra_mapa(MAPA* m, POSICAO* p, char c){
+
     for (int i = 0; i < m->linhas; i++){
         for (int j = 0; j < m->colunas; j++){
             if(m->matriz[i][j] == c){
                 p->x = i;
                 p->y = j;
-                break;
+                return 1;
             }
         }
     }
+    return 0;
+}
+
+int eh_parede(MAPA* m, int x, int y){
+    return m->matriz[x][y] == PAREDE_VERTICAL ||
+        m->matriz[x][y] == PAREDE_HORIZONTAL;
+}
+
+int eh_personagem(MAPA* m, char personagem, int x, int y){
+
+    return m->matriz[x][y] == personagem;
+}
+
+int pode_andar(MAPA* m, char personagem, int x, int y){
+    return
+        eh_valida(m, x, y) && 
+        !eh_parede(m, x, y) &&
+        !eh_personagem(m, personagem, x, y);
 }
 
 void libera_mapa(MAPA* m){
@@ -59,10 +78,12 @@ void libera_mapa(MAPA* m){
 
 void aloca_mapa(MAPA* m){
     m->matriz = malloc(sizeof(char*) * m->linhas);
+
     for (int i = 0; i < m->linhas; i++){
         m->matriz[i] = malloc(sizeof(char) * (m->colunas + 1));
     }
 }
+
 void le_mapa(MAPA* m){
     FILE* f;
 
@@ -76,7 +97,7 @@ void le_mapa(MAPA* m){
 
     aloca_mapa(m);
     
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < m->linhas; i++){
         fscanf(f, "%s", m->matriz[i]);
     }
 
