@@ -6,6 +6,7 @@
 
 MAPA m;
 POSICAO heroi;
+int tem_pilula = 0;
 
 int pra_onde_o_fantasma_vai(int x_atual, int y_atual,
     int* x_destino, int* y_destino){
@@ -98,12 +99,43 @@ void move(char direcao){
 
     if(!pode_andar(&m, HEROI, proximo_x, proximo_y))
         return;
+
+    if (eh_personagem(&m, PILULA, proximo_x, proximo_y)){
+        tem_pilula = 1;
+    }
     
     anda_no_mapa(&m, heroi.x, heroi.y,
         proximo_x, proximo_y);
     
     heroi.x = proximo_x;
     heroi.y = proximo_y;
+}
+
+void explode_pilula(){
+
+    if(!tem_pilula) return;
+
+    explode_pilula2(heroi.x, heroi.y, 0, 1, 3);
+    explode_pilula2(heroi.x, heroi.y, 0, -1, 3);
+    explode_pilula2(heroi.x, heroi.y, 1, 0, 3);
+    explode_pilula2(heroi.x, heroi.y, -1, 0, 3);
+
+    tem_pilula = 0;
+}
+
+void explode_pilula2(int x, int y, int soma_x, int soma_y, int quantidade){
+    
+    if (quantidade == 0) return;
+    
+    int novo_x = x + soma_x;
+    int novo_y = y + soma_y;
+
+    if(!eh_valida(&m, novo_x, novo_y)) return;
+    if(eh_parede(&m, novo_x, novo_y)) return;
+
+    m.matriz[novo_x][novo_y] = VAZIO;
+    explode_pilula2(novo_x, novo_y, soma_x, soma_y, quantidade - 1);
+
 }
 
 int main(){
@@ -113,12 +145,16 @@ int main(){
 
     do{
 
+        printf("Tem pilula: %s\n", (tem_pilula ? "SIM" : "NÃO"));
         imprime_mapa(&m);
 
         char comando;
         scanf(" %c", &comando);
+
         
         move(comando);
+
+        if (comando == BOMBA) explode_pilula();
         fantasmas();
 
     } while(!acabou());
