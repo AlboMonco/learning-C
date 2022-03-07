@@ -3,6 +3,8 @@
 #define VAZIO '.'
 #define PAREDE_VERTICAL '|'
 #define PAREDE_HORIZONTAL '-'
+#define PILULA 'P'
+#define BOMBA 'b'
 
 struct mapa{
     char** matriz;
@@ -31,6 +33,7 @@ void anda_no_mapa(MAPA* m, int x_origem, int y_origem,
     int x_destino, int y_destino);
 void copia_mapa(MAPA* destino, MAPA* origem);
 int pode_andar(MAPA* m, char personagem, int x, int y);
+int eh_parede(MAPA* m, int x, int y);
 
 
 
