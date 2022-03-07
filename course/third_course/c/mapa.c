@@ -106,7 +106,7 @@ void le_mapa(MAPA* m){
 
 
 void imprime_mapa(MAPA* m){
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < m->linhas; i++){
         printf("%s\n", m->matriz[i]);
     }
 }
